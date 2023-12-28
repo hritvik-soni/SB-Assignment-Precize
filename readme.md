@@ -100,7 +100,7 @@ The SAT Results object has the following attributes:
 
 Refer to the API documentation for details on using each endpoint. The documentation can be found in the code comments.
 
-- link for Swagger UI :- http://localhost:8080/swagger-ui/index.html#/
+- Link for Swagger UI :- http://localhost:8080/swagger-ui/index.html#/
 - Link for H2 console :-http://localhost:8080/h2-console/login.jsp (username:- sa , passsword="1")
 
 ##
