@@ -81,7 +81,7 @@ The SAT Results object has the following attributes:
   - Endpoint `/api/sat-results/delete-record/{name}?newScore=45`
   - Method `DELETE`
 
-## Technical Requirements
+## Technical Stack
 
 - **Backend Language:** Java
 - **Framework:** Spring Boot
