@@ -24,6 +24,7 @@ public class SatResult {
         private String country;
         private String pinCode;
         private Integer satScore;
+        private boolean isPassed;
 
 
 

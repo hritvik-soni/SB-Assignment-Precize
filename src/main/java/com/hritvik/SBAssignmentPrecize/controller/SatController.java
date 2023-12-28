@@ -25,7 +25,7 @@ public class SatController {
      * @return the response entity containing the result of the insert operation
      */
 
-    @PostMapping("/insert")
+    @PostMapping("/insert-record")
     public ResponseEntity<String> insertData(@RequestBody SatResultInput satResult) {
         // Call the insertData method of the satService to insert the satResult into the database
         return satService.insertData(satResult);
@@ -79,7 +79,7 @@ public class SatController {
      */
 
     @PutMapping("/update-score/{name}")
-    public ResponseEntity<String> updateScore(@PathVariable String name, @RequestParam int newScore) {
+    public ResponseEntity<String> updateScore(@PathVariable String name, @RequestParam("newScore") int newScore) {
 //     call the updateScore method of the satService to update the score
         return satService.updateScore(name, newScore);
 
@@ -92,7 +92,7 @@ public class SatController {
      * @return       the response entity indicating the result of the delete operation
      */
 
-    @DeleteMapping("/delete/{name}")
+    @DeleteMapping("/delete-record/{name}")
     public ResponseEntity<String> deleteRecord(@PathVariable String name) {
         // call the deleteRecord method of the satService to delete the record
         return satService.deleteRecord(name);

@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "e2859a68-8598-4e49-b19b-55adaec1a1ed",
+		"name": "Presize-Assisment-Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27811054",
+		"_collection_link": "https://www.postman.com/lunar-module-architect-29363035/workspace/springboot/collection/27811054-e2859a68-8598-4e49-b19b-55adaec1a1ed?action=share&source=collection_link&creator=27811054"
+	},
+	"item": [
+		{
+			"name": "Insert-Record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"hritvik\",\r\n  \"address\": \"demo address\",\r\n  \"city\": \"Indore\",\r\n  \"country\": \"India\",\r\n  \"pinCode\": \"452012\",\r\n  \"satScore\": 80\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/insert-record",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"insert-record"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View-All-Records",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/view-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"view-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check-is-Passed-By-Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/is-passed/hritvik",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"is-passed",
+						"hritvik"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Rank-By-Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/get-rank/hritvik",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"get-rank",
+						"hritvik"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update-Score-By-Name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/update-score/hritvik?newScore=45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"update-score",
+						"hritvik"
+					],
+					"query": [
+						{
+							"key": "newScore",
+							"value": "45"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Record-By-Name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/sat-results/delete-record/hritvik",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sat-results",
+						"delete-record",
+						"hritvik"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

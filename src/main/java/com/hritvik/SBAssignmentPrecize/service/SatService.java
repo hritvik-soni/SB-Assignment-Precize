@@ -46,6 +46,7 @@ public class SatService {
                 .country(satResult.getCountry())
                 .pinCode(satResult.getPinCode())
                 .satScore(satResult.getSatScore())
+                .isPassed(satResult.getSatScore() > 30)
                 .build();
 
         // save the record
@@ -163,6 +164,8 @@ public class SatService {
 
             // update the score
             result.setSatScore(newScore);
+            // update the passed status
+            result.setPassed(newScore > 30);
 
             // save the record
             satRepository.save(result);
