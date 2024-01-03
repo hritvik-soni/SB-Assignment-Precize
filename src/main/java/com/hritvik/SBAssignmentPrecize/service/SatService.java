@@ -16,6 +16,7 @@ public class SatService {
     @Autowired
     private SatRepository satRepository;
 
+
     /**
      * Inserts data into the database if the record does not already exist.
      *
@@ -28,11 +29,11 @@ public class SatService {
         if(satRepository.existsByName(satResult.getName())) {
 
             // return an error response if the record already exists
-            return new ResponseEntity<>("Record already exists", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Record already exists", HttpStatus.CONFLICT);
         }
 
         // check if the score is valid
-        if (satResult.getSatScore() < 0 || satResult.getSatScore() > 100) {
+        if (satResult.getSatScore() <= 0 || satResult.getSatScore() >= 100) {
 
             // return an error response if the score is not valid
             return new ResponseEntity<>("Invalid score (range: 0-100)", HttpStatus.BAD_REQUEST);
@@ -84,24 +85,22 @@ public class SatService {
     public ResponseEntity<String> getRank(String name) {
 
         // search and sort the records
+        if (satRepository.findByName(name) == null) {
 
-        List<SatResult> sortedResults = satRepository.findAll().stream()
-                .sorted((r1, r2) -> Integer.compare(r2.getSatScore(), r1.getSatScore()))
-                .toList();
-
-       // find the rank
-        for (int i = 0; i < sortedResults.size(); i++) {
-
-            // check if the name matches
-            if (sortedResults.get(i).getName().equals(name)) {
-
-                // return the response
-                return new ResponseEntity<>("Rank: " + (i + 1), HttpStatus.OK);
-            }
+            // return an error response if the record is not found
+            return new ResponseEntity<>("Record not found", HttpStatus.NOT_FOUND);
         }
+        // get the rank
+        int currScore = satRepository.findByName(name).getSatScore();
+
+//         search for records with a score greater than the current score
+        int rank = satRepository.findCountWhereSatScoreGreater(currScore) + 1;
+        int rank2 = satRepository.countBySatScoreGreaterThan(currScore)+1;
+
 
         // return the response
-       return new ResponseEntity<>("Record not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Rank1 :" + rank + "\n" + "Rank2 :" + rank2 , HttpStatus.OK);
+
     }
 
     /**
@@ -119,12 +118,11 @@ public class SatService {
             SatResult result = satRepository.findByName(name);
 
             // check if the score is greater than 30
-            if (result.getSatScore() >30) {
+            if (result.getSatScore() > 30) {
 
                 // return the response
                 return new ResponseEntity<>("Passed", HttpStatus.OK);
-             }
-            else {
+            } else {
 
                 // return the response
                 return new ResponseEntity<>("Failed", HttpStatus.OK);
@@ -152,16 +150,18 @@ public class SatService {
             SatResult result = satRepository.findByName(name);
 
             // check if the score is valid
-            if (newScore < 0 || newScore > 100) {
+            if (newScore <= 0 || newScore >= 100) {
                 return new ResponseEntity<>("Invalid score (range: 0-100)", HttpStatus.BAD_REQUEST);
             }
 
             // check if the new score is the same as the old score
             if (result.getSatScore()==newScore) {
                 // return the response
-                return new ResponseEntity<>("New score same as old", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("New score same as old", HttpStatus.CONFLICT);
             }
 
+            // get the old score
+            int oldScore = result.getSatScore();
             // update the score
             result.setSatScore(newScore);
             // update the passed status
@@ -171,7 +171,7 @@ public class SatService {
             satRepository.save(result);
 
             // return the response
-            return new ResponseEntity<>("Score updated successfully Old Score: " + result.getSatScore() + " New Score: " + newScore, HttpStatus.OK);
+            return new ResponseEntity<>("Score updated successfully Old Score: " + oldScore+ " New Score: " + newScore, HttpStatus.OK);
         }
 
         // return the response
